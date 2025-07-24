@@ -1,0 +1,21 @@
+[package]
+name = "nostd_libc"
+version = "0.1.0"
+edition = "2024"
+
+[profile.dev]
+panic="abort"
+
+[profile.release]
+opt-level = 3
+strip = true
+debug = false
+lto = true
+codegen-units = 1
+panic = "abort"
+
+
+
+[dependencies.libc]
+version= "0.2.170"
+default-features = false
