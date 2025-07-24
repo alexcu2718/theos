@@ -196,40 +196,4 @@ where
     }
 }
 
-// Syscall interfaces remain the same
-impl<T, const SIZE: usize> AlignedBuffer<T, SIZE>
-where
-    T: ValueType,
-{
-    /// # Safety
-    /// This is only to be called when using syscalls in the getdents interface
-    #[inline]
-    #[cfg(target_os = "linux")]
-    pub unsafe fn getdents64_internal(&mut self, fd: i32) -> i64 {
-        unsafe { libc::syscall(libc::SYS_getdents64, fd, self.as_mut_ptr(), SIZE) }
-    }
-
-    /// # Safety
-    /// This uses inline assembly to bypass glibc quirks
-    #[inline]
-    #[allow(clippy::cast_possible_truncation)]
-    #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
-    pub unsafe fn getdents64_asm(&mut self, fd: i32) -> i64 {
-        use core::arch::asm;
-        let output;
-        unsafe {
-            asm!(
-                "syscall",
-                inout("rax") libc::SYS_getdents64  => output,
-                in("rdi") fd,
-                in("rsi") self.as_mut_ptr(),
-                in("rdx") SIZE,
-                out("rcx") _,  // syscall clobbers rcx
-                out("r11") _,  // syscall clobbers r11
-                options(nostack, preserves_flags)
-            )
-        };
-        output
-    }
-}
 
