@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# Set required environment variables
-export CARGO_MANIFEST_DIR=$(pwd)
 
-# enforce  if nightly installed
+# enforce  nightly installed
 if ! rustup show | grep -q 'nightly'; then
   echo "Rust nightly not found. Installing..."
   rustup install nightly
