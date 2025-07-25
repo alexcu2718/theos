@@ -1,0 +1,8 @@
+[build]
+target = "x86_64-nostd.json"
+
+[unstable]
+build-std = ["core", "alloc"]
+
+[target.x86_64-nostd]
+runner = "bootimage runner"
