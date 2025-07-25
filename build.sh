@@ -32,4 +32,4 @@ if ! command -v qemu-system-x86_64 &> /dev/null; then
 fi
 
 
-QT_LOGGING_RULES="*.debug=false" qemu-system-x86_64 -drive format=raw,file=target/x86_64-nostd/debug/bootimage-theos.bin
+ qemu-system-x86_64 -drive format=raw,file=target/x86_64-nostd/debug/bootimage-theos.bin
