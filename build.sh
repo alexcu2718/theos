@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-
+│ echo 'this will probably  not work unfortunately, it works on my machine(tm) but
+    needs work to work on anything else(tested on archlinux)'
 # ensure rustup is available
 if ! command -v rustup &> /dev/null; then
   echo "rustup not found. Installing..."
