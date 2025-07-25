@@ -3,8 +3,11 @@
 
 # ensure rustup is available
 if ! command -v rustup &> /dev/null; then
-  echo "rustup not installed. Please install rustup first."
-  exit 1
+  echo "rustup not found. Installing..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  export PATH="$HOME/.cargo/bin:$PATH"
+else
+  echo "rustup is already installed."
 fi
 
 # enforce nightly installed (we need it )
@@ -13,6 +16,7 @@ if ! rustup show | grep -q 'nightly'; then
   rustup install nightly
 fi
 
+echo "execute the following command\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 rustup default nightly
 # Ensure bootimage is installed (for nightly)
 if ! cargo install --list | grep -q '^bootimage v'; then
