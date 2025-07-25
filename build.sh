@@ -16,7 +16,6 @@ if ! rustup show | grep -q 'nightly'; then
   rustup install nightly
 fi
 
-echo "execute the following command\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 rustup default nightly
 # Ensure bootimage is installed (for nightly)
 if ! cargo install --list | grep -q '^bootimage v'; then
