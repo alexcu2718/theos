@@ -13,6 +13,7 @@ if ! rustup show | grep -q 'nightly'; then
   rustup install nightly
 fi
 
+rustup default nightly
 # Ensure bootimage is installed (for nightly)
 if ! cargo install --list | grep -q '^bootimage v'; then
   echo "'bootimage' not found. Installing..."
